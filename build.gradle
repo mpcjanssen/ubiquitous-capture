@@ -1,0 +1,58 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.10.+'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+
+
+    repositories {
+        mavenCentral()
+    }
+
+    buildToolsVersion "19.1.0"
+    compileSdkVersion 19
+
+    defaultConfig {
+        versionName '0.0.1'
+        versionCode 1
+        packageName 'nl.mpcjanssen.uc'
+    }
+
+    dependencies {
+        compile 'com.android.support:support-v4:19.1.0'
+    }
+
+
+
+    signingConfigs {
+        release {
+            keyAlias = "mpcjanssen.nl"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+// Only sign if we have keystore properties in the gradle.properties
+if (project.hasProperty('storeFile') &&
+        project.hasProperty('storePassword') &&
+        project.hasProperty('keyPassword')) {
+    android.signingConfigs.release.storeFile = file(storeFile)
+    android.signingConfigs.release.storePassword = storePassword
+    android.signingConfigs.release.keyPassword = keyPassword
+} else {
+    android.buildTypes.release.signingConfig = null
+}
