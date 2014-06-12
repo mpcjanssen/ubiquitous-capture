@@ -86,6 +86,8 @@ public class UbiquitousCaptureActivity extends Activity {
                 Log.v("log_tag", "Panel Saved");
                     mView.setDrawingCacheEnabled(true);
                     mSignature.save(mView);
+                    mSignature.clear();
+                    mGetSign.setEnabled(false);
                     finish();
 
             }
