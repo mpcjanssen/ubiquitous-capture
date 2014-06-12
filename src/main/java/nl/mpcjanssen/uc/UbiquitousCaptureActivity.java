@@ -91,7 +91,7 @@ public class UbiquitousCaptureActivity extends Activity {
             }
         });
     }
- 
+
     @Override
     protected void onDestroy() {
         Log.w("GetSignature", "onDestory");

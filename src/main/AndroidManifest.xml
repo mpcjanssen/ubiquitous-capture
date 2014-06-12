@@ -7,11 +7,18 @@
     <application android:name="nl.mpcjanssen.uc.UCApplication" android:icon="@drawable/ic_launcher" android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light">
         <activity android:name=".UbiquitousCaptureActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+         <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+            <action android:name="nl.mpcjanssen.uc.CAPTURE" />
+        </intent-filter>
+
         </activity>
     </application>
 </manifest>
