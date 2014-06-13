@@ -21,8 +21,9 @@ public class UCApplication extends Application {
                         .setContentTitle("Ubiquitous capture")
                         .setContentText("Capture")
                         .setOngoing(true)
-                        .setPriority(Notification.PRIORITY_MIN)
-                        ;
+                        .setWhen(0)
+                        .setPriority(Notification.PRIORITY_MIN);
+
         Intent notifyIntent =
                 new Intent("nl.mpcjanssen.uc.CAPTURE");
                 notifyIntent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS );
