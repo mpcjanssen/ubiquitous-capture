@@ -8,6 +8,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
+        style="?android:attr/buttonBarStyle"
         android:layout_height="wrap_content">
 
         <Button
@@ -15,6 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="Clear" />
 
         <Button
@@ -22,6 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="Save" />
     </LinearLayout>
 

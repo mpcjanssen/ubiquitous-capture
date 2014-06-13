@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,13 +15,11 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 /**
  * Created by janss484 on 13-6-2014.
  */
-public class CaptureView extends ImageView
-{
+public class CaptureView extends ImageView {
 
     private static final float STROKE_WIDTH = 5f;
     private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
@@ -35,8 +31,7 @@ public class CaptureView extends ImageView
     private final RectF dirtyRect = new RectF();
     private ToggleButton toggleButton;
 
-    public CaptureView(Context context, AttributeSet attrs)
-    {
+    public CaptureView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint.setAntiAlias(true);
         paint.setColor(Color.BLACK);
@@ -52,39 +47,32 @@ public class CaptureView extends ImageView
         return bitmap;
     }
 
-    public void save(File target)
-    {
+    public void save(File target) {
         Log.v("log_tag", "Width: " + this.getWidth());
         Log.v("log_tag", "Height: " + this.getHeight());
-        try
-        {
+        try {
             FileOutputStream mFileOutStream = new FileOutputStream(target);
             getBitmap().compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
             mFileOutStream.flush();
             mFileOutStream.close();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             Log.v("log_tag", e.toString());
         }
     }
 
-    public void clear()
-    {
+    public void clear() {
         path.reset();
         invalidate();
         toggle(false);
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         //if (event.getToolType(0)!=MotionEvent.TOOL_TYPE_STYLUS) {
         //   return false;
         //}
@@ -92,8 +80,7 @@ public class CaptureView extends ImageView
         float eventX = event.getX();
         float eventY = event.getY();
 
-        switch (event.getAction())
-        {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 path.moveTo(eventX, eventY);
                 lastTouchX = eventX;
@@ -106,8 +93,7 @@ public class CaptureView extends ImageView
 
                 resetDirtyRect(eventX, eventY);
                 int historySize = event.getHistorySize();
-                for (int i = 0; i < historySize; i++)
-                {
+                for (int i = 0; i < historySize; i++) {
                     float historicalX = event.getHistoricalX(i);
                     float historicalY = event.getHistoricalY(i);
                     expandDirtyRect(historicalX, historicalY);
@@ -131,29 +117,21 @@ public class CaptureView extends ImageView
         return true;
     }
 
-    private void expandDirtyRect(float historicalX, float historicalY)
-    {
-        if (historicalX < dirtyRect.left)
-        {
+    private void expandDirtyRect(float historicalX, float historicalY) {
+        if (historicalX < dirtyRect.left) {
             dirtyRect.left = historicalX;
-        }
-        else if (historicalX > dirtyRect.right)
-        {
+        } else if (historicalX > dirtyRect.right) {
             dirtyRect.right = historicalX;
         }
 
-        if (historicalY < dirtyRect.top)
-        {
+        if (historicalY < dirtyRect.top) {
             dirtyRect.top = historicalY;
-        }
-        else if (historicalY > dirtyRect.bottom)
-        {
+        } else if (historicalY > dirtyRect.bottom) {
             dirtyRect.bottom = historicalY;
         }
     }
 
-    private void resetDirtyRect(float eventX, float eventY)
-    {
+    private void resetDirtyRect(float eventX, float eventY) {
         dirtyRect.left = Math.min(lastTouchX, eventX);
         dirtyRect.right = Math.max(lastTouchX, eventX);
         dirtyRect.top = Math.min(lastTouchY, eventY);
@@ -172,7 +150,7 @@ public class CaptureView extends ImageView
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            path = (CustomPath)bundle.getSerializable("stateToSave");
+            path = (CustomPath) bundle.getSerializable("stateToSave");
             state = bundle.getParcelable("instanceState");
             if (path.isEmpty()) {
                 toggle(false);
@@ -183,12 +161,12 @@ public class CaptureView extends ImageView
     }
 
     private void toggle(Boolean state) {
-        if (toggleButton!=null) {
+        if (toggleButton != null) {
             toggleButton.setEnable(state);
         }
     }
 
-    public void setToggleButton( ToggleButton tbtn) {
+    public void setToggleButton(ToggleButton tbtn) {
         this.toggleButton = tbtn;
         toggle(false);
     }

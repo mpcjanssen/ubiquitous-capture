@@ -47,7 +47,7 @@ public class CustomPath extends Path implements Serializable {
     }
 
     public interface PathAction {
-        public enum PathActionType {LINE_TO,MOVE_TO};
+        public enum PathActionType {LINE_TO,MOVE_TO}
         public PathActionType getType();
         public float getX();
         public float getY();

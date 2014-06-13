@@ -1,29 +1,21 @@
 package nl.mpcjanssen.uc;
- 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Calendar;
- 
+
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
- 
+
+import java.io.File;
+import java.util.Calendar;
+
 public class UbiquitousCaptureActivity extends Activity {
  
     CaptureView mSignature;
@@ -119,8 +111,7 @@ public class UbiquitousCaptureActivity extends Activity {
         bundle.putParcelable("bitmap", bm);
     }
  
-    private String getTodaysDate() { 
- 
+    private String getTodaysDate() {
         final Calendar c = Calendar.getInstance();
         int todaysDate =     (c.get(Calendar.YEAR) * 10000) + 
         ((c.get(Calendar.MONTH) + 1) * 100) + 
