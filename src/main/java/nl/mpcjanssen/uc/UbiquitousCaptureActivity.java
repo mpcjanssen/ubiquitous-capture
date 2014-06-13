@@ -102,15 +102,6 @@ public class UbiquitousCaptureActivity extends Activity {
         Toast.makeText(this, "Saved " + mypath.getName(), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        Bitmap bm = Bitmap.createBitmap(mSignature.getWidth(), mSignature.getHeight(), Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bm);
-        mSignature.draw(canvas);
-        bundle.putParcelable("bitmap", bm);
-    }
- 
     private String getTodaysDate() {
         final Calendar c = Calendar.getInstance();
         int todaysDate =     (c.get(Calendar.YEAR) * 10000) + 
