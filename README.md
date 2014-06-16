@@ -9,3 +9,28 @@ Small application to capture scribbles to the SD card. It is created to be easil
 * Closing or saving will store the scribble as PNG and close the app.
 
 Code for the canvas is based on a sample from http://www.mysamplecode.com/
+
+Changelog
+=========
+
+0.0.4
+-----
+
+* Let MediaScanner scan new png's so they will show up in Gallery for review.
+* Lower API level to support more devices.
+
+0.0.3
+-----
+
+* Start notification on boot
+* Reduce memory usage
+
+0.0.2
+-----
+
+* Don't clear canvas when switching to other app without saving.
+
+0.0.1
+-----
+
+* Initial release

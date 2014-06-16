@@ -22,7 +22,7 @@ public class UCApplication extends Application {
                         .setContentText("Capture")
                         .setOngoing(true)
                         .setWhen(0)
-                        .setPriority(Notification.PRIORITY_MIN);
+                        .setPriority(NotificationCompat.PRIORITY_MIN);
 
         Intent notifyIntent =
                 new Intent("nl.mpcjanssen.uc.CAPTURE");

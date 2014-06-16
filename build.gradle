@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.+'
+        classpath 'com.android.tools.build:gradle:0.11.1'
     }
 }
 
@@ -22,9 +22,9 @@ android {
     compileSdkVersion 19
 
     defaultConfig {
-        versionName '0.0.3'
-        versionCode 3
-        packageName 'nl.mpcjanssen.uc'
+        versionName '0.0.4'
+        versionCode 4
+        applicationId 'nl.mpcjanssen.uc'
     }
 
     dependencies {
