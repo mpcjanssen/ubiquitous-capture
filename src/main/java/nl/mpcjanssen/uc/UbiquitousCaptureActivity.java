@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,7 +18,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.Calendar;
 
-public class UbiquitousCaptureActivity extends Activity {
+public class UbiquitousCaptureActivity extends Activity  {
  
     CaptureView mSignature;
     Button mClear, mGetSign;
@@ -28,6 +30,7 @@ public class UbiquitousCaptureActivity extends Activity {
  
     private String uniqueId;
     private File directory;
+    private MediaScannerConnection mediaScannerConn;
 
     public void initCanvas() {
         mSignature = (CaptureView) findViewById(R.id.image);
@@ -99,6 +102,18 @@ public class UbiquitousCaptureActivity extends Activity {
             mypath= new File(directory,current);
         }
         mSignature.save(mypath);
+        mediaScannerConn = new MediaScannerConnection(this,new MediaScannerConnection.MediaScannerConnectionClient() {
+            @Override
+            public void onMediaScannerConnected() {
+                mediaScannerConn.scanFile(mypath.getAbsolutePath(),null);
+            }
+
+            @Override
+            public void onScanCompleted(String s, Uri uri) {
+                mediaScannerConn.disconnect();
+            }
+        });
+        mediaScannerConn.connect();
         Toast.makeText(this, "Saved " + mypath.getName(), Toast.LENGTH_SHORT).show();
     }
 
