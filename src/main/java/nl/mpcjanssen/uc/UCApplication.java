@@ -26,7 +26,6 @@ public class UCApplication extends Application {
 
         Intent notifyIntent =
                 new Intent("nl.mpcjanssen.uc.CAPTURE");
-                notifyIntent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS );
         PendingIntent notifyPIntent =
                 PendingIntent.getActivity(
                         this,

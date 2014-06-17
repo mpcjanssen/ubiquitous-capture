@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
  */
 public class CaptureView extends ImageView {
 
-    private static final float STROKE_WIDTH = 5f;
+    private static final float STROKE_WIDTH = 2f;
     private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
     private Paint paint = new Paint();
     private CustomPath path = new CustomPath();
