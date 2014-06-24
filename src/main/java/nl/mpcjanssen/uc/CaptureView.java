@@ -117,6 +117,11 @@ public class CaptureView extends ImageView {
         return true;
     }
 
+    public void undo() {
+        path.undo();
+        invalidate();
+    }
+
     private void expandDirtyRect(float historicalX, float historicalY) {
         if (historicalX < dirtyRect.left) {
             dirtyRect.left = historicalX;

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import android.util.Log;
 
 public class CustomPath extends Path implements Serializable {
 
@@ -22,6 +23,18 @@ public class CustomPath extends Path implements Serializable {
     public void reset() {
         actions.clear();
         super.reset();
+    }
+
+    public void undo() {
+        if (actions.size()==0) return;
+        int idx = actions.size()-1;
+        while (idx > 0 && actions.get(idx).getType().equals(PathAction.PathActionType.LINE_TO)) {
+            actions.remove(idx);
+            idx--;
+        }
+        actions.remove(idx);
+        super.reset();
+        drawThisPath();
     }
 
     @Override

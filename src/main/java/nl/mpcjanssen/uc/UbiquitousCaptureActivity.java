@@ -14,7 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import java.io.File;
 import java.util.Calendar;
 
@@ -31,57 +33,81 @@ public class UbiquitousCaptureActivity extends Activity  {
     private String uniqueId;
     private File directory;
     private MediaScannerConnection mediaScannerConn;
+    private MenuItem saveMenu;
 
     public void initCanvas() {
         mSignature = (CaptureView) findViewById(R.id.image);
         mSignature.setBackgroundColor(Color.WHITE);
-        mClear = (Button)findViewById(R.id.clear);
-        mGetSign = (Button)findViewById(R.id.getsign);
         mSignature.setToggleButton(new CaptureView.ToggleButton() {
             @Override
             public void setEnable(boolean state) {
-                mGetSign.setEnabled(state);
+                if (saveMenu!=null) {
+                    saveMenu.setEnabled(state);
+                }
             }
         });
+    }
+
+    private void clearCanvas() {
+        Log.v("log_tag", "Panel Cleared");
+        mSignature.clear();
+    }
+
+    private void saveCanvas() {
+        Log.v("log_tag", "Panel Saved");
+        save();
+        mSignature.clear();
+        finish();
+    }
+
+    private void undoCanvas() {
+        mSignature.undo();
+    }
+
+    private boolean isSaveEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+         MenuInflater inflater = getMenuInflater();
+         inflater.inflate(R.menu.main, menu);
+         saveMenu = menu.findItem(R.id.save);
+         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case R.id.save:
+                saveCanvas();
+                return true;
+            case R.id.clear:
+                clearCanvas();
+                return true;
+            case R.id.undo:
+                undoCanvas();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
         
         folder = Environment.getExternalStorageDirectory() + "/" + getString(R.string.external_dir) + "/";
         initCanvas();
-        mClear.setOnClickListener(new OnClickListener() 
-        {        
-            public void onClick(View v) 
-            {
-                Log.v("log_tag", "Panel Cleared");
-                mSignature.clear();
-                mGetSign.setEnabled(false);
-            }
-        });
- 
-        mGetSign.setOnClickListener(new OnClickListener() 
-        {        
-            public void onClick(View v) 
-            {
-                Log.v("log_tag", "Panel Saved");
-                    save();
-                    mSignature.clear();
-                    mGetSign.setEnabled(false);
-                    finish();
-
-            }
-        });
     }
 
     @Override
     public void onBackPressed() {
         Log.w("GetSignature", "onDestory");
-        if (mGetSign.isEnabled()) {
+        if (isSaveEnabled()) {
             save();
         }
         super.onBackPressed();
