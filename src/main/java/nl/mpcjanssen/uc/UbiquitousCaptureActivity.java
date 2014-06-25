@@ -23,7 +23,6 @@ import java.util.Calendar;
 public class UbiquitousCaptureActivity extends Activity  {
  
     CaptureView mSignature;
-    Button mClear, mGetSign;
 
     public String current = null;
     String folder;
@@ -41,11 +40,15 @@ public class UbiquitousCaptureActivity extends Activity  {
         mSignature.setToggleButton(new CaptureView.ToggleButton() {
             @Override
             public void setEnable(boolean state) {
-                if (saveMenu!=null) {
-                    saveMenu.setEnabled(state);
-                }
+                setSaveMenuState(state);
             }
         });
+    }
+
+    private void setSaveMenuState(boolean state) {
+        if (saveMenu!=null) {
+            saveMenu.setVisible(state);
+        }
     }
 
     private void clearCanvas() {
@@ -65,6 +68,9 @@ public class UbiquitousCaptureActivity extends Activity  {
     }
 
     private boolean isSaveEnabled() {
+        if (saveMenu!=null) {
+            return saveMenu.isVisible();
+        }
         return true;
     }
 
@@ -74,6 +80,9 @@ public class UbiquitousCaptureActivity extends Activity  {
          MenuInflater inflater = getMenuInflater();
          inflater.inflate(R.menu.main, menu);
          saveMenu = menu.findItem(R.id.save);
+         if (mSignature.isEmpty()) {
+             setSaveMenuState(false);
+         }
          return true;
     }
 
@@ -103,6 +112,7 @@ public class UbiquitousCaptureActivity extends Activity  {
         folder = Environment.getExternalStorageDirectory() + "/" + getString(R.string.external_dir) + "/";
         initCanvas();
     }
+
 
     @Override
     public void onBackPressed() {

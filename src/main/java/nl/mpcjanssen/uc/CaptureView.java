@@ -66,6 +66,10 @@ public class CaptureView extends ImageView {
         toggle(false);
     }
 
+    public boolean isEmpty() {
+        return path.isEmpty();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
@@ -119,6 +123,9 @@ public class CaptureView extends ImageView {
 
     public void undo() {
         path.undo();
+        if (isEmpty()) {
+            toggle(false);
+        }
         invalidate();
     }
 

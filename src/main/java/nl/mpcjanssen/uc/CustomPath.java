@@ -25,6 +25,10 @@ public class CustomPath extends Path implements Serializable {
         super.reset();
     }
 
+    public boolean isEmpty() {
+        return actions.size()==0;
+    }
+
     public void undo() {
         if (actions.size()==0) return;
         int idx = actions.size()-1;
