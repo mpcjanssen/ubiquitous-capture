@@ -128,9 +128,7 @@ public class UbiquitousCaptureActivity extends Activity  {
         
         folder = Environment.getExternalStorageDirectory() + "/" + getString(R.string.external_dir) + "/";
         initCanvas();
-        if (mSignature.isEmpty()) {
-            setSaveState(false);
-        }
+        setSaveState(mSignature.isEmpty());
     }
 
 
