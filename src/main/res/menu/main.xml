@@ -19,4 +19,9 @@
         android:icon="@drawable/ic_action_content_undo"
         android:showAsAction="ifRoom"
         />
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        android:showAsAction="never"
+        />
 </menu>
