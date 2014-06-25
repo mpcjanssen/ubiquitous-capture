@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="nl.mpcjanssen.uc">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nl.mpcjanssen.uc">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
-    
-    <application android:name="nl.mpcjanssen.uc.UCApplication" android:icon="@drawable/ic_launcher" android:label="@string/app_name"
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:name="nl.mpcjanssen.uc.UCApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:allowBackup="true"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
-        <activity android:name=".UbiquitousCaptureActivity"
+        <activity
+            android:name=".UbiquitousCaptureActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         <intent-filter>
-            <category android:name="android.intent.category.DEFAULT" />
-            <action android:name="nl.mpcjanssen.uc.CAPTURE" />
-        </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="nl.mpcjanssen.uc.CAPTURE" />
+            </intent-filter>
 
         </activity>
 
-        <activity android:name="nl.mpcjanssen.uc.SettingsActivity" android:label="Settings" />
+        <activity
+            android:name="nl.mpcjanssen.uc.SettingsActivity"
+            android:label="Settings" />
 
         <receiver
             android:name=".StartOnBoot"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
