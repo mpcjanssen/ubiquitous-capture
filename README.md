@@ -13,6 +13,13 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+0.0.7
+-----
+
+* Updated icons, many thanks to Robert Chudy.
+
+
+
 0.0.6
 -----
 
