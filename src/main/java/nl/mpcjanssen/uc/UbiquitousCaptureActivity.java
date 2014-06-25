@@ -125,18 +125,21 @@ public class UbiquitousCaptureActivity extends Activity  {
                 openSettings();
             }
         });
-        
         folder = Environment.getExternalStorageDirectory() + "/" + getString(R.string.external_dir) + "/";
         initCanvas();
-        setSaveState(mSignature.isEmpty());
     }
-
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        setSaveState(isSaveEnabled());
+    }
 
     @Override
     public void onBackPressed() {
         Log.w("GetSignature", "onDestory");
         if (isSaveEnabled()) {
-            save();
+            saveCanvas();
         }
         super.onBackPressed();
     }
