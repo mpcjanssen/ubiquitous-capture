@@ -13,6 +13,16 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+0.0.6
+-----
+
+* Added setting for closing when saving the image.
+
+0.0.5
+-----
+
+* Added undo.
+
 0.0.4
 -----
 
