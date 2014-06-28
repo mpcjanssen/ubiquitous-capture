@@ -32,6 +32,7 @@
 
         <activity
             android:name="nl.mpcjanssen.uc.SettingsActivity"
+            android:theme="@android:style/Theme.Holo.Light"
             android:label="Settings" />
 
         <receiver

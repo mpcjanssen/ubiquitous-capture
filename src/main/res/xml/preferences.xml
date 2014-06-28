@@ -4,5 +4,5 @@
         android:key="pref_close_on_save"
         android:title="Close on save"
         android:summary="Close UCT after saving the image"
-        android:defaultValue="true" />
+        android:defaultValue="false" />
 </PreferenceScreen>

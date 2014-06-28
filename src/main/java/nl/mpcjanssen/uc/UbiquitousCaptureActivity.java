@@ -38,7 +38,7 @@ public class UbiquitousCaptureActivity extends Activity  {
 
     public boolean isCloseOnSave() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        return sharedPref.getBoolean("pref_close_on_save", true);
+        return sharedPref.getBoolean("pref_close_on_save", false);
     }
 
     public void initCanvas() {

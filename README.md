@@ -18,8 +18,6 @@ Changelog
 
 * Updated icons, many thanks to Robert Chudy.
 
-
-
 0.0.6
 -----
 
