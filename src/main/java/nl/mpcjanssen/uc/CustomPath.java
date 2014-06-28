@@ -13,6 +13,7 @@ public class CustomPath extends Path implements Serializable {
     private static final long serialVersionUID = -5974912367682897467L;
 
     private ArrayList<PathAction> actions = new ArrayList<CustomPath.PathAction>();
+    private ArrayList<ArrayList<PathAction>> redo = new ArrayList<ArrayList<PathAction>>();
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
@@ -22,6 +23,7 @@ public class CustomPath extends Path implements Serializable {
     @Override
     public void reset() {
         actions.clear();
+        redo.clear();
         super.reset();
     }
 
@@ -30,15 +32,31 @@ public class CustomPath extends Path implements Serializable {
     }
 
     public void undo() {
+        ArrayList<PathAction> redoItems = new ArrayList<PathAction>();
         if (actions.size()==0) return;
         int idx = actions.size()-1;
         while (idx > 0 && actions.get(idx).getType().equals(PathAction.PathActionType.LINE_TO)) {
+            redoItems.add(0,actions.get(idx));
             actions.remove(idx);
             idx--;
         }
+        redoItems.add(0,actions.get(idx));
         actions.remove(idx);
+        redo.add(0,redoItems);
         super.reset();
         drawThisPath();
+    }
+
+    public void redo() {
+        if (redo.size()==0) return;
+        actions.addAll(redo.get(0));
+        redo.remove(0);
+        super.reset();
+        drawThisPath();
+    }
+
+    public void clearRedo() {
+        redo.clear();
     }
 
     @Override

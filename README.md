@@ -13,6 +13,13 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+1.0.0
+-----
+
+* Update UI (idea Robert Chudy).
+* Implemented redo.
+* Changed default to keep app open after saving.
+
 0.0.7
 -----
 

@@ -81,6 +81,8 @@ public class CaptureView extends ImageView {
         //   return false;
         //}
         toggle(true);
+        // clear redo stack because we are drawing
+        path.clearRedo();
         float eventX = event.getX();
         float eventY = event.getY();
 
@@ -129,6 +131,14 @@ public class CaptureView extends ImageView {
         invalidate();
     }
 
+    public void redo() {
+        path.redo();
+        if (!isEmpty()) {
+            toggle(true);
+        }
+        invalidate();
+    }
+
     private void expandDirtyRect(float historicalX, float historicalY) {
         if (historicalX < dirtyRect.left) {
             dirtyRect.left = historicalX;
@@ -154,7 +164,7 @@ public class CaptureView extends ImageView {
     public Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("instanceState", super.onSaveInstanceState());
-        bundle.putSerializable("stateToSave", path);
+        bundle.putSerializable("path", path);
         return bundle;
     }
 
@@ -162,7 +172,7 @@ public class CaptureView extends ImageView {
     public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
-            path = (CustomPath) bundle.getSerializable("stateToSave");
+            path = (CustomPath) bundle.getSerializable("path");
             state = bundle.getParcelable("instanceState");
             if (path.isEmpty()) {
                 toggle(false);

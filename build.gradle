@@ -22,8 +22,8 @@ android {
     compileSdkVersion 19
 
     defaultConfig {
-        versionName '0.0.7'
-        versionCode 7
+        versionName '1.0.0'
+        versionCode 8
         applicationId 'nl.mpcjanssen.uc'
     }
 

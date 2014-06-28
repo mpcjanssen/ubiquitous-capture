@@ -32,6 +32,7 @@ public class UbiquitousCaptureActivity extends Activity  {
     private String uniqueId;
     private MediaScannerConnection mediaScannerConn;
     private View btnUndo;
+    private View btnRedo;
     private View btnClear;
     private View btnSave;
     private View btnSettings;
@@ -54,8 +55,6 @@ public class UbiquitousCaptureActivity extends Activity  {
 
     private void setSaveState(boolean state) {
         btnSave.setEnabled(state);
-        btnClear.setEnabled(state);
-        btnUndo.setEnabled(state);
     }
 
     private void clearCanvas() {
@@ -74,6 +73,9 @@ public class UbiquitousCaptureActivity extends Activity  {
 
     private void undoCanvas() {
         mSignature.undo();
+    }
+    private void redoCanvas() {
+        mSignature.redo();
     }
 
     private boolean isSaveEnabled() {
@@ -94,6 +96,7 @@ public class UbiquitousCaptureActivity extends Activity  {
         setContentView(R.layout.main);
 
         btnUndo = findViewById(R.id.undo);
+        btnRedo = findViewById(R.id.redo);
         btnSave = findViewById(R.id.save);
         btnClear = findViewById(R.id.clear);
         btnSettings = findViewById(R.id.settings);
@@ -102,6 +105,13 @@ public class UbiquitousCaptureActivity extends Activity  {
             @Override
             public void onClick(View view) {
                 undoCanvas();
+            }
+        });
+
+        btnRedo.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redoCanvas();
             }
         });
 
