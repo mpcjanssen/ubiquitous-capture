@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference android:title="Folder to save captures"
+        android:key="button"
+        android:summary="default"/>
     <CheckBoxPreference
         android:key="pref_close_on_save"
         android:title="Close on save"

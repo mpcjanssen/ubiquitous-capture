@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +26,6 @@ public class UbiquitousCaptureActivity extends Activity  {
     CaptureView mSignature;
 
     public String current = null;
-    String folder;
     File mypath;
     int idx = 1;
  
@@ -85,6 +85,8 @@ public class UbiquitousCaptureActivity extends Activity  {
         return true;
     }
 
+
+
     private void openSettings() {
         startActivityForResult(new Intent(this,SettingsActivity.class),0);
     }
@@ -135,7 +137,6 @@ public class UbiquitousCaptureActivity extends Activity  {
                 openSettings();
             }
         });
-        folder = Environment.getExternalStorageDirectory() + "/" + getString(R.string.external_dir) + "/";
         initCanvas();
     }
     
@@ -155,7 +156,7 @@ public class UbiquitousCaptureActivity extends Activity  {
     }
 
     private void save() {
-        File directory = new File(folder);
+        File directory = ((UCApplication)getApplication()).getCaptureFolder();
         if (!directory.exists()) {
             directory.mkdirs();
         }
