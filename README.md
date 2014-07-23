@@ -13,6 +13,11 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+1.0.1
+-----
+
+* Allow setting the capture directory.
+
 1.0.0
 -----
 

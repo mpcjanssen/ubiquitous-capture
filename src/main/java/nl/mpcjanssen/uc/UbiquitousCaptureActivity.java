@@ -19,10 +19,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class UbiquitousCaptureActivity extends Activity  {
- 
+
+    private static final String TAG = UbiquitousCaptureActivity.class.getName() ;
     CaptureView mSignature;
 
     public String current = null;
@@ -58,16 +60,17 @@ public class UbiquitousCaptureActivity extends Activity  {
     }
 
     private void clearCanvas() {
-        Log.v("log_tag", "Panel Cleared");
+        Log.v(TAG, "Panel Cleared");
         mSignature.clear();
     }
 
     private void saveCanvas() {
-        Log.v("log_tag", "Panel Saved");
-        save();
-        mSignature.clear();
-        if (isCloseOnSave()) {
-            finish();
+        Log.v(TAG, "Saving canvas");
+        if (save()) {
+            mSignature.clear();
+            if (isCloseOnSave()) {
+                finish();
+            }
         }
     }
 
@@ -155,7 +158,7 @@ public class UbiquitousCaptureActivity extends Activity  {
         super.onBackPressed();
     }
 
-    private void save() {
+    private boolean save() {
         File directory = ((UCApplication)getApplication()).getCaptureFolder();
         if (!directory.exists()) {
             directory.mkdirs();
@@ -169,20 +172,27 @@ public class UbiquitousCaptureActivity extends Activity  {
             current = uniqueId + idx + ".png";
             mypath= new File(directory,current);
         }
-        mSignature.save(mypath);
-        mediaScannerConn = new MediaScannerConnection(this,new MediaScannerConnection.MediaScannerConnectionClient() {
-            @Override
-            public void onMediaScannerConnected() {
-                mediaScannerConn.scanFile(mypath.getAbsolutePath(),null);
-            }
+        try {
+            mSignature.save(mypath);
+            mediaScannerConn = new MediaScannerConnection(this, new MediaScannerConnection.MediaScannerConnectionClient() {
+                @Override
+                public void onMediaScannerConnected() {
+                    mediaScannerConn.scanFile(mypath.getAbsolutePath(), null);
+                }
 
-            @Override
-            public void onScanCompleted(String s, Uri uri) {
-                mediaScannerConn.disconnect();
-            }
-        });
-        mediaScannerConn.connect();
-        Toast.makeText(this, "Saved " + mypath.getName(), Toast.LENGTH_SHORT).show();
+                @Override
+                public void onScanCompleted(String s, Uri uri) {
+                    mediaScannerConn.disconnect();
+                }
+            });
+            mediaScannerConn.connect();
+            Toast.makeText(this, "Saved " + mypath.getName(), Toast.LENGTH_SHORT).show();
+            return true;
+        } catch (IOException e) {
+            Log.v(TAG,"Couldn't save file at " + mypath + ": " + e.getCause());
+            Toast.makeText(this, "Couldn't save file at " + mypath + ": " + e.getCause(), Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 
     private String getTodaysDate() {

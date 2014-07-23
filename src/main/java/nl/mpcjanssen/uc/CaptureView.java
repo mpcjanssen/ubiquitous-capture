@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by janss484 on 13-6-2014.
@@ -47,17 +48,11 @@ public class CaptureView extends ImageView {
         return bitmap;
     }
 
-    public void save(File target) {
-        Log.v("log_tag", "Width: " + this.getWidth());
-        Log.v("log_tag", "Height: " + this.getHeight());
-        try {
-            FileOutputStream mFileOutStream = new FileOutputStream(target);
-            getBitmap().compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
-            mFileOutStream.flush();
-            mFileOutStream.close();
-        } catch (Exception e) {
-            Log.v("log_tag", e.toString());
-        }
+    public void save(File target) throws IOException {
+        FileOutputStream mFileOutStream = new FileOutputStream(target);
+        getBitmap().compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
+        mFileOutStream.flush();
+        mFileOutStream.close();
     }
 
     public void clear() {
