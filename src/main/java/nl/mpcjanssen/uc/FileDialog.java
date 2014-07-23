@@ -15,6 +15,7 @@ import java.util.List;
 public class FileDialog {
     private static final String PARENT_DIR = "..";
     private final String TAG = getClass().getName();
+    private final File initialPath;
     private String[] fileList;
     private File currentPath;
     public interface FileSelectedListener {
@@ -34,16 +35,19 @@ public class FileDialog {
      * @param initialPath
      */
     public FileDialog(Activity activity, File initialPath) {
-	this.activity = activity;
-	if (!initialPath.exists()) initialPath = Environment.getExternalStorageDirectory();
-	loadFileList(initialPath);
+        this.activity = activity;
+        if (initialPath.exists()) {
+            this.initialPath = initialPath;
+        } else {
+            this.initialPath = Environment.getExternalStorageDirectory();
+        }
     }
-
     /**
      * @return file dialog
      */
     public Dialog createFileDialog() {
 	Dialog dialog = null;
+    loadFileList(initialPath);
 	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
 	builder.setTitle(currentPath.getPath());
