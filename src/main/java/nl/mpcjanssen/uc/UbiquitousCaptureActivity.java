@@ -47,6 +47,7 @@ public class UbiquitousCaptureActivity extends Activity  {
     public void initCanvas() {
         mSignature = (CaptureView) findViewById(R.id.image);
         mSignature.setBackgroundColor(Color.WHITE);
+        mSignature.setPath(((UCApplication)getApplication()).mPath);
         mSignature.setToggleButton(new CaptureView.ToggleButton() {
             @Override
             public void setEnable(boolean state) {

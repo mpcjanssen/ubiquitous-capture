@@ -17,6 +17,7 @@ import java.io.File;
 public class UCApplication extends Application {
 
     private static final int NOTIFY_ID = 0;
+    public CustomPath mPath = new CustomPath();
 
     @Override
     public void onCreate() {

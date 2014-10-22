@@ -48,6 +48,10 @@ public class CaptureView extends ImageView {
         return bitmap;
     }
 
+    public void setPath(CustomPath path) {
+        this.path = path;
+    }
+
     public void save(File target) throws IOException {
         FileOutputStream mFileOutStream = new FileOutputStream(target);
         getBitmap().compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
