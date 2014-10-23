@@ -10,6 +10,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FileDialog {
@@ -142,6 +143,7 @@ public class FileDialog {
 		r.add(file);
 	    }
 	}
+    Collections.sort(r);
 	fileList = (String[]) r.toArray(new String[]{});
     }
 
