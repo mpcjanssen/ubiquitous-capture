@@ -32,7 +32,11 @@ public class SettingsActivity extends Activity {
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preferences);
+        }
 
+        @Override
+        public void onActivityCreated (Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
             button = findPreference("button");
             button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
