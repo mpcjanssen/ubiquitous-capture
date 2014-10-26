@@ -13,6 +13,13 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+1.0.2
+-----
+
+* Fix issue where switching back could clear the capture.
+* Fix NPE in settings.
+* Sort folders when setting capture path.
+
 1.0.1
 -----
 
