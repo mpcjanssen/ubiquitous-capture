@@ -21,6 +21,10 @@ public class UCApplication extends Application {
 
     @Override
     public void onCreate() {
+        int prio = NotificationCompat.PRIORITY_MIN;
+        if (useHighPrioNotification()) {
+            prio = NotificationCompat.PRIORITY_MAX;
+        }
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_notification_icon)
@@ -28,7 +32,7 @@ public class UCApplication extends Application {
                         .setContentText("Capture")
                         .setOngoing(true)
                         .setWhen(0)
-                        .setPriority(NotificationCompat.PRIORITY_MAX);
+                        .setPriority(prio);
 
         Intent notifyIntent =
                 new Intent("nl.mpcjanssen.uc.CAPTURE");
@@ -54,6 +58,12 @@ public class UCApplication extends Application {
         folder = new File(path);
         return folder;
     }
+
+    public boolean useHighPrioNotification () {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPref.getBoolean("pref_notify_prio_high", false);
+    }
+
 
     public void setCaptureFolder (File folder) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
