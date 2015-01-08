@@ -13,6 +13,12 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+1.0.3
+-----
+
+* Fix folder selection.
+* Pad date parts with zero. 
+
 1.0.2
 -----
 
