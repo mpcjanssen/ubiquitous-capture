@@ -41,7 +41,7 @@ public class SettingsActivity extends Activity {
             button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference arg0) {
-                    FileDialog dirDialog = new FileDialog(getActivity(), Environment.getExternalStorageDirectory());
+                    FileDialog dirDialog = new FileDialog(getActivity(), m_app.getCaptureFolder());
                     dirDialog.setSelectDirectoryOption(true);
                     dirDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
                         @Override
@@ -51,7 +51,7 @@ public class SettingsActivity extends Activity {
 
                         }
                     });
-                    dirDialog.showDialog();
+                    dirDialog.showDialog(null);
                     return true;
                 }
             });

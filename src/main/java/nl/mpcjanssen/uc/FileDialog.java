@@ -46,9 +46,14 @@ public class FileDialog {
     /**
      * @return file dialog
      */
-    public Dialog createFileDialog() {
+    public Dialog createFileDialog(File path) {
 	Dialog dialog = null;
-    loadFileList(initialPath);
+
+    if (path == null) {
+        loadFileList(initialPath);
+    } else {
+        loadFileList(path);
+    }
 	AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
 	builder.setTitle(currentPath.getPath());
@@ -66,10 +71,10 @@ public class FileDialog {
 		    String fileChosen = fileList[which];
 		    File chosenFile = getChosenFile(fileChosen);
 		    if (chosenFile.isDirectory()) {
-			loadFileList(chosenFile);
+            currentPath = chosenFile;
 			dialog.cancel();
 			dialog.dismiss();
-			showDialog();
+			showDialog(currentPath);
 		    } else fireFileSelectedEvent(chosenFile);
 		}
 	    });
@@ -102,8 +107,8 @@ public class FileDialog {
     /**
      * Show file dialog
      */
-    public void showDialog() {
-	createFileDialog().show();
+    public void showDialog(File path) {
+	createFileDialog(path).show();
     }
 
     private void fireFileSelectedEvent(final File file) {
@@ -123,6 +128,7 @@ public class FileDialog {
     }
 
     private void loadFileList(File path) {
+        Log.v("FileDialog", "Loading files for " + path.toString());
 	this.currentPath = path;
 	List<String> r = new ArrayList<String>();
 	if (path.exists()) {
@@ -148,8 +154,14 @@ public class FileDialog {
     }
 
     private File getChosenFile(String fileChosen) {
-	if (fileChosen.equals(PARENT_DIR)) return currentPath.getParentFile();
-	else return new File(currentPath, fileChosen);
+    Log.v("FileDialog", "File choosen: " + fileChosen);
+    Log.v("FileDialog", "Current path: " + currentPath.toString());
+    Log.v("FileDialog", "Parent path: " + currentPath.getParentFile());
+	if (fileChosen.equals(PARENT_DIR)) {
+        return currentPath.getParentFile();
+    } else {
+        return new File(currentPath, fileChosen);
+    }
     }
 
     public void setFileEndsWith(String fileEndsWith) {
