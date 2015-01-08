@@ -209,11 +209,12 @@ public class UbiquitousCaptureActivity extends Activity  {
     private String getCurrentTime() {
  
         final Calendar c = Calendar.getInstance();
-        int currentTime =     (c.get(Calendar.HOUR_OF_DAY) * 10000) + 
-        (c.get(Calendar.MINUTE) * 100) + 
-        (c.get(Calendar.SECOND));
-        Log.w("TIME:",String.valueOf(currentTime));
-        return(String.valueOf(currentTime));
+        String time = "" ;
+        time += String.format("%02d", c.get(Calendar.HOUR_OF_DAY));
+        time += String.format("%02d", c.get(Calendar.MINUTE));
+        time += String.format("%02d", c.get(Calendar.SECOND));
+        Log.w("TIME",time);
+        return(time);
  
     }
 }
