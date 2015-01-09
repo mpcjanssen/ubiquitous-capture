@@ -11,8 +11,6 @@
     <CheckBoxPreference
         android:key="pref_notify_prio_high"
         android:title="High prio notification"
-        android:summary="Use high priority permanent notification.
-        This makes the capture notification visible in the top bar and on the lock screen in Lollipop.
-        This requires a reboot for now."
+        android:summary="Use high priority permanent notification. This makes the capture notification visible in the top bar and on the lock screen in Lollipop. This requires a reboot for now."
         android:defaultValue="false" />
 </PreferenceScreen>
