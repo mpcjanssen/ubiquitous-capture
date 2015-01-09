@@ -18,6 +18,7 @@ Changelog
 
 * Fix folder selection.
 * Pad date parts with zero. 
+* Add setting to change permanent notification priority.
 
 1.0.2
 -----
