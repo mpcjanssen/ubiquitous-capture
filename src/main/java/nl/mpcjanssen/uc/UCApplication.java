@@ -64,6 +64,12 @@ public class UCApplication extends Application {
         return sharedPref.getBoolean("pref_notify_prio_high", false);
     }
 
+    public boolean usePenOnly() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPref.getBoolean("pref_pen_draw_only", false);
+    }
+
+
 
     public void setCaptureFolder (File folder) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);

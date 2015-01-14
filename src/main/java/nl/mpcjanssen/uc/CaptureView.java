@@ -26,6 +26,7 @@ public class CaptureView extends ImageView {
     private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
     private Paint paint = new Paint();
     private CustomPath path = new CustomPath();
+    private UCApplication app;
 
     private float lastTouchX;
     private float lastTouchY;
@@ -34,6 +35,7 @@ public class CaptureView extends ImageView {
 
     public CaptureView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        app = (UCApplication) context.getApplicationContext();
         paint.setAntiAlias(true);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
@@ -76,9 +78,9 @@ public class CaptureView extends ImageView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //if (event.getToolType(0)!=MotionEvent.TOOL_TYPE_STYLUS) {
-        //   return false;
-        //}
+        if (app.usePenOnly() && event.getToolType(0)!=MotionEvent.TOOL_TYPE_STYLUS) {
+           return false;
+        }
         toggle(true);
         // clear redo stack because we are drawing
         path.clearRedo();

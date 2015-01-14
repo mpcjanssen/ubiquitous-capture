@@ -13,4 +13,9 @@
         android:title="High prio notification"
         android:summary="Use high priority permanent notification. This makes the capture notification visible in the top bar and on the lock screen in Lollipop. This requires a reboot for now."
         android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="pref_pen_draw_only"
+        android:title="Draw with pen only"
+        android:summary="Draw with a pen only. Note that this doesn't work with capacitive styluses"
+        android:defaultValue="false" />
 </PreferenceScreen>
