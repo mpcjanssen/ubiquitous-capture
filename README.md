@@ -13,6 +13,11 @@ Code for the canvas is based on a sample from http://www.mysamplecode.com/
 Changelog
 =========
 
+1.0.4
+-----
+
+* Add setting for stylus only drawing.
+
 1.0.3
 -----
 

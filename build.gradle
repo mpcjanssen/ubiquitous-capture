@@ -18,17 +18,17 @@ android {
         mavenCentral()
     }
 
-    buildToolsVersion "19.1.0"
-    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+    compileSdkVersion 21
 
     defaultConfig {
-        versionName '1.0.3'
-        versionCode 11
+        versionName '1.0.4'
+        versionCode 12
         applicationId 'nl.mpcjanssen.uc'
     }
 
     dependencies {
-        compile 'com.android.support:support-v4:19.1.0'
+        compile 'com.android.support:support-v4:21.0.0'
     }
 
 
