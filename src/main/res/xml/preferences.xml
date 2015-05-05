@@ -18,4 +18,9 @@
         android:title="Draw with pen only"
         android:summary="Draw with a pen only. Note that this doesn't work with capacitive styluses"
         android:defaultValue="false" />
+    <CheckBoxPreference
+            android:key="pref_buttons_top"
+            android:title="Buttons on top"
+            android:summary="Put all buttons on top"
+            android:defaultValue="false"/>
 </PreferenceScreen>

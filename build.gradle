@@ -1,37 +1,33 @@
-
 buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:1.1.1'
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
+
+// Call gradle with -Plint to enable all warnings.
+if (hasProperty("lint")) {
+    tasks.withType(Compile) {
+        options.compilerArgs << "-Xlint:all"
+    }
+}
 
 android {
 
-
-    repositories {
-        mavenCentral()
-    }
-
-    buildToolsVersion "21.1.2"
-    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+    compileSdkVersion 22
 
     defaultConfig {
-        versionName '1.0.4'
-        versionCode 12
+        versionName '1.0.5'
+        versionCode 13
+        minSdkVersion 14
+        targetSdkVersion 22
         applicationId 'nl.mpcjanssen.uc'
     }
-
-    dependencies {
-        compile 'com.android.support:support-v4:21.0.0'
-    }
-
-
 
     signingConfigs {
         release {
@@ -46,7 +42,15 @@ android {
     }
 }
 
-// Only sign if we have keystore properties in the gradle.properties
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:22.0.0'
+}
+
+// Only sign if we have keystore properties in the gradle.properties in ~/.gradle
 if (project.hasProperty('storeFile') &&
         project.hasProperty('storePassword') &&
         project.hasProperty('keyPassword')) {

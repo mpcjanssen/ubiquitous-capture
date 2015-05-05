@@ -3,21 +3,16 @@ package nl.mpcjanssen.uc;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -42,6 +37,11 @@ public class UbiquitousCaptureActivity extends Activity  {
     public boolean isCloseOnSave() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPref.getBoolean("pref_close_on_save", false);
+    }
+
+    public boolean hasButtonsOnTop() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPref.getBoolean("pref_buttons_top", false);
     }
 
     public void initCanvas() {
@@ -99,7 +99,11 @@ public class UbiquitousCaptureActivity extends Activity  {
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        if (hasButtonsOnTop()) {
+            setContentView(R.layout.main_top);
+        } else {
+            setContentView(R.layout.main);
+        }
 
         btnUndo = findViewById(R.id.undo);
         btnRedo = findViewById(R.id.redo);
