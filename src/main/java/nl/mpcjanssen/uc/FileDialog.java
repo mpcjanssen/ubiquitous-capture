@@ -23,11 +23,10 @@ public class FileDialog {
     private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<>();
     private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<>();
     private boolean selectDirectoryOption;
-    private String fileEndsWith;
 
     /**
-     * @param activity
-     * @param initialPath
+     * @param activity The activity to diaplay the file dialog in.
+     * @param initialPath The initial path.
      */
     public FileDialog(Activity activity, File initialPath) {
         this.activity = activity;
@@ -73,17 +72,7 @@ public class FileDialog {
                 } else fireFileSelectedEvent(chosenFile);
             }
         });
-
-        Dialog dialog = builder.show();
-        return dialog;
-    }
-
-    public void addFileListener(FileSelectedListener listener) {
-        fileListenerList.add(listener);
-    }
-
-    public void removeFileListener(FileSelectedListener listener) {
-        fileListenerList.remove(listener);
+        return builder.show();
     }
 
     public void setSelectDirectoryOption(boolean selectDirectoryOption) {
@@ -124,33 +113,23 @@ public class FileDialog {
     private void loadFileList(File path) {
         Log.v("FileDialog", "Loading files for " + path.toString());
         this.currentPath = path;
-        List<String> r = new ArrayList<String>();
+        List<String> r = new ArrayList<>();
         if (path.exists()) {
             if (path.getParentFile() != null) r.add(PARENT_DIR);
             FilenameFilter filter = new FilenameFilter() {
                 public boolean accept(File dir, String filename) {
                     File sel = new File(dir, filename);
-                    if (!sel.canRead()) return false;
-                    if (selectDirectoryOption) return sel.isDirectory();
-                    else {
-                        boolean endsWith = fileEndsWith != null ? filename.toLowerCase().endsWith(fileEndsWith) : true;
-                        return endsWith || sel.isDirectory();
-                    }
+                    return sel.canRead() && sel.isDirectory();
                 }
             };
             String[] fileList1 = path.list(filter);
-            for (String file : fileList1) {
-                r.add(file);
-            }
+            Collections.addAll(r, fileList1);
         }
         Collections.sort(r);
-        fileList = r.toArray(new String[0]);
     }
 
     private File getChosenFile(String fileChosen) {
         Log.v("FileDialog", "File choosen: " + fileChosen);
-        Log.v("FileDialog", "Current path: " + currentPath.toString());
-        Log.v("FileDialog", "Parent path: " + currentPath.getParentFile());
         if (fileChosen.equals(PARENT_DIR)) {
             return currentPath.getParentFile();
         } else {
@@ -168,14 +147,14 @@ public class FileDialog {
 }
 
 class ListenerList<L> {
-    private List<L> listenerList = new ArrayList<L>();
+    private List<L> listenerList = new ArrayList<>();
 
     public void add(L listener) {
         listenerList.add(listener);
     }
 
     public void fireEvent(FireHandler<L> fireHandler) {
-        List<L> copy = new ArrayList<L>(listenerList);
+        List<L> copy = new ArrayList<>(listenerList);
         for (L l : copy) {
             fireHandler.fireEvent(l);
         }
@@ -183,10 +162,6 @@ class ListenerList<L> {
 
     public void remove(L listener) {
         listenerList.remove(listener);
-    }
-
-    public List<L> getListenerList() {
-        return listenerList;
     }
 
     public interface FireHandler<L> {
