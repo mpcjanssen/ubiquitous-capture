@@ -18,7 +18,7 @@ public class FileDialog {
     private final String TAG = getClass().getName();
     private final File initialPath;
     private final Activity activity;
-    private String[] fileList;
+    private ArrayList<String> fileList = new ArrayList<>();
     private File currentPath;
     private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<>();
     private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<>();
@@ -60,9 +60,9 @@ public class FileDialog {
             });
         }
 
-        builder.setItems(fileList, new DialogInterface.OnClickListener() {
+        builder.setItems(fileList.toArray(new String[fileList.size()]), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                String fileChosen = fileList[which];
+                String fileChosen = fileList.get(which);
                 File chosenFile = getChosenFile(fileChosen);
                 if (chosenFile.isDirectory()) {
                     currentPath = chosenFile;
@@ -81,10 +81,6 @@ public class FileDialog {
 
     public void addDirectoryListener(DirectorySelectedListener listener) {
         dirListenerList.add(listener);
-    }
-
-    public void removeDirectoryListener(DirectorySelectedListener listener) {
-        dirListenerList.remove(listener);
     }
 
     /**
@@ -114,8 +110,8 @@ public class FileDialog {
         Log.v("FileDialog", "Loading files for " + path.toString());
         this.currentPath = path;
         List<String> r = new ArrayList<>();
+        if (path.getParentFile() != null) r.add(PARENT_DIR);
         if (path.exists()) {
-            if (path.getParentFile() != null) r.add(PARENT_DIR);
             FilenameFilter filter = new FilenameFilter() {
                 public boolean accept(File dir, String filename) {
                     File sel = new File(dir, filename);
@@ -126,6 +122,8 @@ public class FileDialog {
             Collections.addAll(r, fileList1);
         }
         Collections.sort(r);
+        fileList.clear();
+        fileList.addAll(r);
     }
 
     private File getChosenFile(String fileChosen) {
@@ -158,10 +156,6 @@ class ListenerList<L> {
         for (L l : copy) {
             fireHandler.fireEvent(l);
         }
-    }
-
-    public void remove(L listener) {
-        listenerList.remove(listener);
     }
 
     public interface FireHandler<L> {
