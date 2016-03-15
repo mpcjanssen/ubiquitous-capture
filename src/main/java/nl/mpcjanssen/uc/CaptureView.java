@@ -22,8 +22,6 @@ import java.io.IOException;
  */
 public class CaptureView extends ImageView {
 
-    private static final float STROKE_WIDTH = 2f;
-    private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
     private Paint paint = new Paint();
     private CustomPath path = new CustomPath();
     private UCApplication app;
@@ -33,6 +31,15 @@ public class CaptureView extends ImageView {
     private final RectF dirtyRect = new RectF();
     private ToggleButton toggleButton;
 
+
+    private float stroke_width() {
+        return app.getLineWidth();
+    }
+
+    private float half_stroke_width() {
+        return stroke_width()/2.0f;
+    }
+
     public CaptureView(Context context, AttributeSet attrs) {
         super(context, attrs);
         app = (UCApplication) context.getApplicationContext();
@@ -40,7 +47,7 @@ public class CaptureView extends ImageView {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeWidth(STROKE_WIDTH);
+        paint.setStrokeWidth(stroke_width());
     }
 
     private Bitmap getBitmap() {
@@ -113,10 +120,10 @@ public class CaptureView extends ImageView {
                 return false;
         }
 
-        invalidate((int) (dirtyRect.left - HALF_STROKE_WIDTH),
-                (int) (dirtyRect.top - HALF_STROKE_WIDTH),
-                (int) (dirtyRect.right + HALF_STROKE_WIDTH),
-                (int) (dirtyRect.bottom + HALF_STROKE_WIDTH));
+        invalidate((int) (dirtyRect.left - half_stroke_width()),
+                (int) (dirtyRect.top - half_stroke_width()),
+                (int) (dirtyRect.right + half_stroke_width()),
+                (int) (dirtyRect.bottom + half_stroke_width()));
 
         lastTouchX = eventX;
         lastTouchY = eventY;

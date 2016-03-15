@@ -1,7 +1,6 @@
 package nl.mpcjanssen.uc;
 
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,6 +20,7 @@ public class UCApplication extends Application {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         int prio = NotificationCompat.PRIORITY_MIN;
         if (useHighPrioNotification()) {
             prio = NotificationCompat.PRIORITY_MAX;
@@ -57,6 +57,12 @@ public class UCApplication extends Application {
         String path =  sharedPref.getString("pref_capture_folder", defaultPath);
         folder = new File(path);
         return folder;
+    }
+
+    public float getLineWidth () {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int percentage =  sharedPref.getInt("pref_line_width", 10);
+        return 40f*percentage/100;
     }
 
     public boolean useHighPrioNotification () {

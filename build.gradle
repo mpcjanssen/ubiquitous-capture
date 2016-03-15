@@ -1,31 +1,29 @@
 buildscript {
+
+    ext.kotlin_version = '1.0.0'
+    ext.android_support_version = '23.1.0'
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.1'
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.3.1'
     }
 }
 
 apply plugin: 'com.android.application'
 
-// Call gradle with -Plint to enable all warnings.
-if (hasProperty("lint")) {
-    tasks.withType(Compile) {
-        options.compilerArgs << "-Xlint:all"
-    }
-}
-
 android {
 
-    buildToolsVersion "22.0.1"
-    compileSdkVersion 22
+    buildToolsVersion "23.0.2"
+    compileSdkVersion 23
 
     defaultConfig {
-        versionName '1.0.5'
-        versionCode 13
+        versionName '1.0.6'
+        versionCode 14
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         applicationId 'nl.mpcjanssen.uc'
     }
 
@@ -47,7 +45,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:support-v4:$android_support_version"
 }
 
 // Only sign if we have keystore properties in the gradle.properties in ~/.gradle

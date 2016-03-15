@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference android:title="Folder to save captures"
+    <Preference
         android:key="button"
-        android:summary="default"/>
+        android:summary="default"
+        android:title="Folder to save captures" />
     <CheckBoxPreference
+        android:defaultValue="false"
         android:key="pref_close_on_save"
-        android:title="Close on save"
         android:summary="Close UCT after saving the image"
-        android:defaultValue="false" />
+        android:title="Close on save" />
     <CheckBoxPreference
+        android:defaultValue="false"
         android:key="pref_notify_prio_high"
-        android:title="High prio notification"
         android:summary="Use high priority permanent notification. This makes the capture notification visible in the top bar and on the lock screen in Lollipop. This requires a reboot for now."
-        android:defaultValue="false" />
+        android:title="High prio notification" />
     <CheckBoxPreference
+        android:defaultValue="false"
         android:key="pref_pen_draw_only"
-        android:title="Draw with pen only"
         android:summary="Draw with a pen only. Note that this doesn't work with capacitive styluses"
-        android:defaultValue="false" />
+        android:title="Draw with pen only" />
     <CheckBoxPreference
-            android:key="pref_buttons_top"
-            android:title="Buttons on top"
-            android:summary="Put all buttons on top"
-            android:defaultValue="false"/>
+        android:defaultValue="false"
+        android:key="pref_buttons_top"
+        android:summary="Put all buttons on top"
+        android:title="Buttons on top" />
+    <com.robobunny.SeekBarPreference xmlns:robobunny="http://robobunny.com"
+        android:defaultValue="10"
+        android:key="pref_line_width"
+        android:max="100"
+        android:summary=""
+        android:title="Line width"
+        robobunny:min="0"
+        robobunny:unitsLeft=""
+        robobunny:unitsRight="%" />
 </PreferenceScreen>
