@@ -42,7 +42,6 @@ public class FileDialog {
      */
     public Dialog createFileDialog(File path) {
 
-
         if (path == null) {
             loadFileList(initialPath);
         } else {
@@ -110,7 +109,7 @@ public class FileDialog {
         Log.v("FileDialog", "Loading files for " + path.toString());
         this.currentPath = path;
         List<String> r = new ArrayList<>();
-        if (path.getParentFile() != null) r.add(PARENT_DIR);
+
         if (path.exists()) {
             FilenameFilter filter = new FilenameFilter() {
                 public boolean accept(File dir, String filename) {

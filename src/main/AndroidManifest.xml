@@ -15,6 +15,7 @@
         <activity
             android:name=".UbiquitousCaptureActivity"
             android:label="@string/app_name"
+            android:showOnLockScreen="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +40,15 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".SPenDetachIntentBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.samsung.pen.INSERT" />
             </intent-filter>
         </receiver>
     </application>
