@@ -21,8 +21,8 @@ android {
     compileSdkVersion 23
 
     defaultConfig {
-        versionName '1.0.6'
-        versionCode 14
+        versionName '1.0.7'
+        versionCode 15
         minSdkVersion 14
         targetSdkVersion 23
         applicationId 'nl.mpcjanssen.uc'
