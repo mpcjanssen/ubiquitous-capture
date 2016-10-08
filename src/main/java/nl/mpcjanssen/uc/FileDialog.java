@@ -118,7 +118,9 @@ public class FileDialog {
                 }
             };
             String[] fileList1 = path.list(filter);
-            Collections.addAll(r, fileList1);
+            if (fileList1.length > 0) {
+                Collections.addAll(r, fileList1);
+            }
         }
         Collections.sort(r);
         fileList.clear();
