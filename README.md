@@ -1,6 +1,8 @@
 ubiquitous-capture
 ==================
 
+[![Join the chat at https://gitter.im/mpcjanssen/ubiquitous-capture](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mpcjanssen/ubiquitous-capture?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Capture scribbles as images to your SDCard. Meant for GTD ubiquitous capture.
 
 Small application to capture scribbles to the SD card. It is created to be easily accessible. This is achieved by:
